@@ -39,3 +39,8 @@
 关于这个第二点，只是我的一个个人的小猜测。。。因为在目前查阅的资料了都描述了“会被后面来的光照亮”这一现象。。。。但是我没有遇到，所以想可能是Unity版本的原因。如果大家知道是怎么回事的话，跪求在评论区告诉楼主ORZ超级感激不尽。
 
 ![Avater](Image/diffuse2.png)
+
+## 参考资料 ##
+> 《Unity Shader入门精要》
+> 
+> 【UnityShader从零开始】漫反射效果 http://gad.qq.com/article/detail/11725
