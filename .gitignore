@@ -1,4 +1,4 @@
 *.meta
-Test
-test
+*Test*
+*test*
 Volume xx *
