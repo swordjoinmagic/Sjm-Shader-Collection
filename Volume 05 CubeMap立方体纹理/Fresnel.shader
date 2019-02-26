@@ -66,7 +66,7 @@ Shader "Volume 05/Cube Map/Fresnel" {
 
                 return fixed4(finalColor,1.0);
             }
-
+ 
             ENDCG
         }
     }
