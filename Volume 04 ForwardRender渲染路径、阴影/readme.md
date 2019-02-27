@@ -1,7 +1,30 @@
+<!-- TOC -->
+- [《Unity Shader 入门精要》读书笔记 之 渲染路径、阴影](#unity-shader-入门精要读书笔记-之-渲染路径阴影)
+- [参考资料](#参考资料)
+- [渲染路径](#渲染路径)
+    - [定义](#定义)
+    - [前向渲染](#前向渲染)
+        - [为什么Addition Pass中要开启混合？](#为什么addition-pass中要开启混合)
+        - [什么是逐像素、逐顶点光照](#什么是逐像素逐顶点光照)
+        - [如何支持多光源光照？](#如何支持多光源光照)
+        - [如何判断光源是逐像素的还是逐顶点](#如何判断光源是逐像素的还是逐顶点)
+        - [multi_compile指令](#multi_compile指令)
+        - [光照衰减](#光照衰减)
+- [阴影](#阴影)
+    - [阴影是如何产生的？](#阴影是如何产生的)
+    - [如何在Unity3D中实现阴影](#如何在unity3d中实现阴影)
+    - [Unity5.x的阴影采样技术](#unity5x的阴影采样技术)
+    - [阴影的投射与接收](#阴影的投射与接收)
+    - [计算阴影的三个宏命令](#计算阴影的三个宏命令)
+        - [SHADOW_COORDS宏](#shadow_coords宏)
+        - [TRANSFER_SHADOW宏](#transfer_shadow宏)
+        - [TRANSFER_ATTENUATION宏](#transfer_attenuation宏)
+<!-- /TOC -->
 # 《Unity Shader 入门精要》读书笔记 之 渲染路径、阴影 #
 ## 参考资料 ##
 > 《Unity Shader 入门精要》
 > 生成多种着色器程序扩展 https://www.cnblogs.com/leiGameDesigner/p/8458898.html
+>游戏里的动态阴影-ShadowMap实现原理 https://www.cnblogs.com/lijiajia/p/7231605.html
 ## 渲染路径
 ### 定义
 > 渲染路径(Rendering Path)决定了光照是如何应用到Unity Shader中的。
@@ -212,3 +235,59 @@ _LightTexture0纹理中对角线上的纹理颜色值表示在光源空间中不
 上面的代码使用光源空间中顶点(lightCoord)距离的平方来对纹理进行采样，没有用距离值采样是因为可以避免开方。
 
 ## 阴影
+### 阴影是如何产生的？
+> 当一个光源发射的一条光线遇到一个不透明物体时，这条光线就不可以继续照亮其他物体。因此，这个物体就会向他旁边的物体投射阴影，阴影区域的产生就是因为光纤无法到达这些区域。
+### 如何在Unity3D中实现阴影
+Unity3D使用阴影映射纹理ShadowMap来实现阴影，它实际上就是一张深度图，由一个额外的Pass渲染。
+
+阴影映射纹理的原理如下：
+
+1. 将摄像机位置变到光源位置（方向、位置等与光源一致），此时摄像机看不到的地方就是光源的阴影区域。在这里渲染一张深度图作为阴影映射纹理。
+2. 当一个物体要接受阴影时，它会向上一步拿到的深度图进行采样，同时比较当前顶点的深度是否大于深度图（阴影映射纹理）中的深度，如果大于，说明该顶点虽然在屏幕空间内可见，但是是阴影区域。
+
+### Unity5.x的阴影采样技术
+> Unity5中，使用了不用于上面那种传统的阴影采样技术，即屏幕空间的阴影映射技术。
+> 当使用了屏幕空间的阴影映射技术时，Unity首先会通过调用LightMode为ShadowCaster的Pass来得到可投射阴影的光源的阴影映射纹理以及摄像机的深度纹理。然后，根据光源的阴影映射纹理和摄像机的深度纹理来得到屏幕空间的阴影图。如果摄像机的深度图中记录的表面深度大于转换到阴影银蛇纹理中的深度值，就说明该表面虽然是可见的，但是却处于该光源的阴影中。
+
+### 阴影的投射与接收
+综上所述，物体要接收阴影，就必须在Shader计算中向阴影映射纹理进行采样，根据采样后的结果来产生阴影效果。
+
+物体要向其他物体投射阴影，自身要加入阴影映射纹理（也就是深度图）的计算，简要的说，就是，该物体得在深度图中记录有它的深度，这样其他物体在接受阴影时，才能根据这个深度判断会不会产生阴影。
+
+### 计算阴影的三个宏命令
+手动实现阴影效果较为麻烦，Unity提供了一些宏命令，可以方便的计算阴影映射纹理、阴影映射纹理的采样坐标、对阴影映射纹理采样后还要经过的一系列计算（深度比较）。
+
+#### SHADOW_COORDS宏
+在AutoLight.cginc中，该宏定义如下：
+
+    #define SHADOWS_COORDS(idx1) unityShadowCoord4 _ShadowCoord : Texcoord##idx1;
+
+简单来说，就是声明了对阴影映射纹理进行采样的坐标，这个坐标在vertex Shader中进行计算。
+
+#### TRANSFER_SHADOW宏
+在AutoLight.cginc中，该宏定义如下：
+
+    #if defined(UNITY_NO_SCREENSPACE_SHADOWS)    
+        #define TRANSFER_SHADOW(a) a._ShadowCoord = mul(unity_World2Shadow[0],mul(_Object2World,v.vertex));
+        inline fixed unitySampleShadow (unityShadowCoord4 shadowCoord){
+            ....
+        }
+    #else
+        #define TRANSFER_SHADOW(a) a._ShadowCoord = ComputeScreenPos(a.pos);
+        inline fixed unitySampleShadow (unityShadowCoord4 shadowCoord){
+            fixed shadow = tex2Dproj(_ShadowMapTexture,UNITY_PROJ_COORD(shadowCoord)).r;
+            return shadow;
+        }
+    #endif
+
+有两种情况：
+
+1. 使用传统对阴影映射纹理采样的方法：将当前顶点变换到光源空间后储存到_ShadowCoord中。（随后可以根据这个变换后的坐标对阴影映射纹理采样，得到当前顶点坐标在光源空间中的深度，与当前顶点的深度进行比较）
+2. 使用屏幕空间的阴影映射技术：将当前顶点变换到屏幕坐标后存储到_ShadowCoord中。
+
+#### TRANSFER_ATTENUATION宏
+在AutoLight.cginc中，该宏定义如下：
+    
+    #define SHADOW_ATTENUATION(a) unitySampleShadow(a._ShadowCoord)
+
+表示使用上面TRANSFER_SHADOW生命的函数unitySampleShadow来计算阴影。
