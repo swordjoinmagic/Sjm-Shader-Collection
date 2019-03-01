@@ -1,7 +1,7 @@
 // 利用图像之间的梯度值进行的边缘检测
 // 主要利用sobel算子算出图像中水平和竖直方向的梯度值,
 // 并根据梯度值来判断当前像素点是不是边界
-Shader "Volume 06/SimplePostEffect/EdgeDetection" {
+Shader "Volume 07/SimplePostEffect/EdgeDetection" {
     Properties {
         // 屏幕图像
         _MainTex("Main Texture",2D) = "white" {}
