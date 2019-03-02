@@ -40,7 +40,6 @@ Shader "Volume 05/Cube Map/Reflection" {
                 o.pos = UnityObjectToClipPos(v.vertex);
                 o.worldNormal = UnityObjectToWorldNormal(v.normal);
                 o.worldPos = mul(unity_ObjectToWorld,v.vertex);
-
                 return o;
             }
 
@@ -62,7 +61,7 @@ Shader "Volume 05/Cube Map/Reflection" {
                 fixed4 diffuse = _LightColor0 * _Color * max(0,dot(worldLightDir,worldNormal));
 
                 fixed3 finalColor = lerp(diffuse.rgb,color.rgb,_ReflectAmount);
-
+                
                 return fixed4(finalColor,1.0);
             }
 
