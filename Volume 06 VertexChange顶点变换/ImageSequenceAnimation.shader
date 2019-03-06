@@ -46,8 +46,8 @@ Shader "Volume 06/Time/ImageSequenceAnimation" {
                 float col = floor(time%_ColAmount);
 
                 float2 uv = float2(i.uv.x/_ColAmount,i.uv.y/_RowAmount);
-                uv.x += row/_RowAmount;
-                uv.y -= col/_ColAmount;
+                uv.x += col/_ColAmount;
+                uv.y -= row/_RowAmount;
 
                 fixed4 color = tex2D(_MainTex,uv);
 
