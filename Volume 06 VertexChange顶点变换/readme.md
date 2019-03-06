@@ -17,9 +17,9 @@
 那么在实际操作时，就需要把uv分成col*row份，也就是说，uv的范围实际上从(0,0)~(1,1)变换到了(0,0)~(1/col,1/row)。
 
 一个比较形象的示意图如下：
-![Avater](Image/readmeImage/VertexChanged0.png)
+![Avater](Image/readmeImage/vertexChanged0.png)
 
-![Avater](Image/readmeImage/VertexChanged1.png)
+![Avater](Image/readmeImage/vertexChanged1.png)
 
 简而言之，我们在frag Shader里得到的uv，x分量要除于col,y分量要除于row,这样,uv就转换到了正确的范围.
 
@@ -29,7 +29,7 @@
 
 假设是第3行第四列的图上，如下图所示，可以看到要平移的部分。
 
-![Avater](Image/readmeImage/VertexChanged2.png)
+![Avater](Image/readmeImage/vertexChanged2.png)
 
 需要注意的是，这张序列帧图片关键帧的顺序是从左到右，从上到下，所以对于uv的y分量，应当减去才是向下一个关键帧前进，如果改为加法，是向上一个序列帧前进。
 
