@@ -15,7 +15,7 @@ Shader "Volume 02/Texture/Normal Texture"{
         _Specular("Specular",Color) = (1, 1, 1, 1)
         // 高光反射光泽度
         _Gloss("Gloss",Range(8.0,256)) = 20
-        // 呕吐程度
+        // 凹凸程度
         _BumpScale("BumpScale",Float) = 1.0
     }
     SubShader{
