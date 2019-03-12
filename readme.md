@@ -68,5 +68,65 @@
 ![Avater](readmeImage/Volume05-Fire.gif)
 
 ## Volume 06 VertexChange 顶点变换
+
+1. 序列帧动画
+
+![Avater](readmeImage/序列帧动画.gif)
+
+2. 广告板
+
+![Avater](readmeImage/广告版.gif)
+
+在不使用广告版的情况下是这样的：
+
+![Avater](readmeImage/不使用广告版.gif)
+
+3. 广告板+序列帧动画(可以将2D动画移植到3D游戏中)
+
+![Avater](readmeImage/广告版-序列帧.gif)
+
+在不使用广告版的情况下是这样的：
+
+![Avater](readmeImage/不使用广告版-序列帧.gif)
+
 ## Volume 07 SimplePostEffect 简单屏幕后处理
+
+原图:
+
+![Avater](readmeImage/Volume07-原图.png)
+
+1. 高斯模糊
+
+![Avater](readmeImage/Volume07-高斯模糊.png)
+
+2. Bloom
+
+![Avater](readmeImage/Volume07-Bloom.png)
+
+3. 运动模糊（基于当前帧与上一帧混合的方案制作）
+
+![Avater](readmeImage/Volume07-motionBlur.gif)
+
+4. 基于边缘检测进行描边(使用屏幕像素值和sobel算子判断边缘)
+
+![Avater](readmeImage/Volume07-边缘检测进行描边.png)
+
 ## Volume 08 DepthNormalTexture 深度和法线纹理的简单应用
+
+1. 运动模糊(使用矩阵变换和深度重建世界坐标)
+
+![Avater](readmeImage/Volume08-运动模糊.gif)
+
+2. 基于高度的雾效(使用射线+摄像机位置+深度重建世界坐标)
+
+![Avater](readmeImage/Volume08-高度雾.gif)
+
+## Volume 09 EdgeDetection 详解边缘检测
+
+1. 基于边缘检测的转场效果(基于噪声、uv变换、边缘检测)
+
+![Avater](readmeImage/Volume09-边缘检测转场.gif)
+
+2. 基于边缘检测的子弹时间效果（基于重建世界坐标、噪声、uv变换、边缘检测、mask图）
+
+![Avater](readmeImage/Volume09-边缘检测子弹时间.gif)

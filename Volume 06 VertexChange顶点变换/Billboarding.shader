@@ -72,7 +72,6 @@ Shader "Volume 06/Time/Billboarding" {
 
             fixed4 frag(v2f i) : SV_TARGET{
                 fixed4 c = tex2D(_MainTex,i.uv);
-                c.rgb = _Color.rgb;
 
                 return c;
             }
