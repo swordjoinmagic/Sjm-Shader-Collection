@@ -117,8 +117,9 @@ Shader "Volume xx/PostEffect/BulletTimeStartWithEdgeDetection" {
                 // 获得在视角空间下的深度值
                 float depth = DecodeFloatRG(tex2D(_MainTex,i.uv[0]).zw);        // 此时depth的深度在[0,1]之间,要乘于远裁剪平面将其变换到视角空间下
                 depth *= _Far;
+
                 // 根据深度值及射线,重建当前像素的世界坐标
-                float3 worldPos = _WorldSpaceCameraPos + depth * i.interpolatedRay.xyz;
+                float3 worldPos = _WorldSpaceCameraPos + depth * i.interpolatedRay.xyz;                            
 
                 // 得到当前像素(世界坐标)与中心点(世界坐标)的距离
                 float distances = distance(worldPos,_CenterPos.xyz) + tex2D(_NoiseTex,i.uv[0]) * 5;

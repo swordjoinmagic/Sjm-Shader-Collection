@@ -34,7 +34,7 @@ public class BulletTimeStartWithEdgeDetection : PostEffectBase{
     public GameObject targetObject;
 
     // CommandBuffer的渲染目标
-    public RenderTexture maskTexture;
+    private RenderTexture maskTexture;
     private CommandBuffer commandBuffer;
 
 
