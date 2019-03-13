@@ -67,13 +67,13 @@
 
 ![Avater](readmeImage/Volume05-Fire.gif)
 
-## Volume 06 VertexChange 顶点变换
+## Volume 06 VertexChange 顶点变换 -> [技术要点](https://github.com/swordjoinmagic/Sjm-Shader-Collection/tree/master/Volume%2006%20VertexChange%E9%A1%B6%E7%82%B9%E5%8F%98%E6%8D%A2)
 
-1. 序列帧动画
+1. 序列帧动画 -> [技术要点](https://github.com/swordjoinmagic/Sjm-Shader-Collection/tree/master/Volume%2006%20VertexChange%E9%A1%B6%E7%82%B9%E5%8F%98%E6%8D%A2#%E5%BA%8F%E5%88%97%E5%B8%A7%E5%8A%A8%E7%94%BB)
 
 ![Avater](readmeImage/序列帧动画.gif)
 
-2. 广告板
+2. 广告板 -> [技术要点](https://github.com/swordjoinmagic/Sjm-Shader-Collection/tree/master/Volume%2006%20VertexChange%E9%A1%B6%E7%82%B9%E5%8F%98%E6%8D%A2#%E5%B9%BF%E5%91%8A%E6%9D%BFbillboarding%E6%8A%80%E6%9C%AF)
 
 ![Avater](readmeImage/广告版.gif)
 
