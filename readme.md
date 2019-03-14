@@ -130,3 +130,9 @@
 2. 基于边缘检测的子弹时间效果（基于重建世界坐标、噪声、uv变换、边缘检测、mask图）
 
 ![Avater](readmeImage/Volume09-边缘检测子弹时间.gif)
+
+## Volume 10 Projector 投影仪的原理及简单应用
+
+1. 仿动画Revisions ED中人物以线条形式投影到大楼上的效果(虽然跟动画里效果差了十万八千里就是了)
+
+![Avater](readmeImage/projectorDisslove.gif)
