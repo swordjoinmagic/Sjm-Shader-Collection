@@ -89,9 +89,10 @@ Shader "Volume 10/Projector/Disslove Texture With Projector" {
 
                 texS.a = lerp(0,texS.a,texF.a);
 
-                // 用噪声和阈值控制投影的图片的显示(i.uv.y越大,透明程度越小)
-                fixed degree = saturate(_EffectPercentage - (i.uv.y-i.uv.x) - tex2D(_NoiseTex,i.uv.rr) );
+                // 用噪声和阈值控制投影的图片的显示
+                fixed degree = saturate(_EffectPercentage - (i.uv.y-i.uv.x) - tex2D(_NoiseTex,sin(i.uv.xx+cos(_Time.xy*0.2))));
                 texS.a = lerp(texS.a,0,degree);
+                texS.rgb = lerp(texS.rgb,fixed3(0,0,1),degree);
                 
                 return texS;
             }

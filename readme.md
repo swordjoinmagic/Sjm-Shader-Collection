@@ -136,3 +136,7 @@
 1. 仿动画Revisions ED中人物以线条形式投影到大楼上的效果(虽然跟动画里效果差了十万八千里就是了)
 
 ![Avater](readmeImage/projectorDisslove.gif)
+
+第二版,加上了_Time变量和噪声使线条呈不规则运动(依旧不像):
+
+![Avater](readmeImage/projectorDisslove2.gif)
