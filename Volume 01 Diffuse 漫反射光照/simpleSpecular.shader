@@ -64,6 +64,7 @@ Shader "Volume 01/Diffuse/Simple Specular Per Frag" {
                 fixed3 specular = _LightColor0.rgb * _Specular.rgb * pow(max(0,dot(worldNormal,halfDir)),_Gloss);
  
                 return fixed4(diffuse + specular + ambient,1.0);   
+                // return fixed4(specular,1.0);
             }
 
             ENDCG
